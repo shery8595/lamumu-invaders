@@ -192,7 +192,7 @@
   <div id="gameTitle">Lamumu Invaders</div>
   <div id="gameSubtitle">🐄 MOO-tastic Space Adventure! 🚀</div>
   <div id="gameWrap">
-    <canvas id="game" width="640" height="720"></canvas>
+    <canvas id="game" width="640" height="540"></canvas>
   </div>
   <div class="ui">🎯 Score: <span id="score">0</span> &nbsp; ❤️ Lives: <span id="lives">3</span></div>
   <div class="help">🎮 CONTROLS<br>← → = Move<br>SPACE = Shoot<br>P = Pause</div>
@@ -227,9 +227,9 @@ let gameState = 'menu'; // 'menu', 'playing', 'paused', 'over'
 // Player
 const player = {
   x: W/2,
-  y: H - 50,
-  w: 38, // was 28
-  h: 26, // was 18
+  y: H - 40,
+  w: 30, // was 38
+  h: 20, // was 26
   speed: 6,
   cooldown: 0
 };
@@ -242,8 +242,8 @@ let enemyBullets = [];
 let invaders = [];
 let invaderCols = 10;
 let invaderRows = 4;
-let invaderSpacing = 46;
-let invaderOrigin = {x: 70, y: 60};
+let invaderSpacing = 36; // was 46
+let invaderOrigin = {x: 70, y: 45}; // was y: 60
 let invSpeed = 0.6;
 let invDir = 1; // 1 = right, -1 = left
 let invDescend = 0;
@@ -276,8 +276,8 @@ function resetLevel() {
       invaders.push({
         x: invaderOrigin.x + c*invaderSpacing,
         y: invaderOrigin.y + r*invaderSpacing,
-        w: 34,
-        h: 24,
+        w: 28, // was 34
+        h: 20, // was 24
         row: r,
         col: c,
         dead:false,
@@ -408,7 +408,7 @@ function rectsOverlap(a,b){
 // Shooting
 function playerShoot(){
   if(player.cooldown<=0){
-    playerBullets.push({x: player.x, y: player.y-12, w:4, h:30, speed:5});
+    playerBullets.push({x: player.x, y: player.y-10, w:4, h:24, speed:5}); // was h:30
     player.cooldown = 12; // frames
     shootSound.currentTime = 0;
     shootSound.play();
@@ -416,7 +416,7 @@ function playerShoot(){
 }
 
 function enemyShoot(x,y){
-  enemyBullets.push({x:x, y:y+18, w:4, h:10, speed:4});
+  enemyBullets.push({x:x, y:y+14, w:4, h:8, speed:4}); // was y:y+18, h:10
 }
 
 // Update
@@ -481,7 +481,7 @@ function update(){
   }
 
   // Check invaders reaching bottom
-  for(let inv of invaders){ if(inv.dead) continue; if(inv.y+inv.h > player.y-30){ endGame(); break; } }
+  for(let inv of invaders){ if(inv.dead) continue; if(inv.y+inv.h > player.y-25){ endGame(); break; } } // was player.y-30
 
   // Level complete?
   if(invaders.every(i=>i.dead)){
@@ -523,16 +523,16 @@ function draw(){
     // body
     ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--inv');
     // wobble for animation
-    let wob = Math.sin(inv.anim*Math.PI)*4;
+    let wob = Math.sin(inv.anim*Math.PI)*3; // was 4
     ctx.fillRect(-inv.w/2 + wob/2, -inv.h/2, inv.w - wob, inv.h);
     // eyes
-    ctx.fillStyle = '#101019'; ctx.fillRect(-12, -4, 6, 6); ctx.fillRect(6, -4, 6, 6);
+    ctx.fillStyle = '#101019'; ctx.fillRect(-10, -3, 5, 5); ctx.fillRect(5, -3, 5, 5); // was -12, -4, 6, 6
     ctx.restore();
   });
 
   // bullets
   // Draw player bullets as vertical 'MOO' text with outline for readability
-  ctx.font = '12px "Press Start 2P", monospace';
+  ctx.font = '10px "Press Start 2P", monospace'; // was 12px
   ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bullet');
   playerBullets.forEach(b => {
     ctx.save();
@@ -542,7 +542,7 @@ function draw(){
     ctx.strokeStyle = 'rgba(0,0,0,0.9)';
     const letters = 'MOO'.split('');
     for (let i = 0; i < letters.length; i++) {
-      const y = b.y + i * 12;
+      const y = b.y + i * 10; // was i * 12
       ctx.strokeText(letters[i], b.x, y);
       ctx.fillText(letters[i], b.x, y);
     }
