@@ -177,14 +177,14 @@
     }
     .ring {
       position: absolute;
-      border: 3px solid rgba(139, 233, 253, 0.2);
+      border: 2px solid rgba(139, 233, 253, 0.2);
       border-radius: 50%;
       animation: pulse 6s infinite ease-in-out;
-      box-shadow: 0 0 20px rgba(139, 233, 253, 0.1);
+      box-shadow: 0 0 15px rgba(139, 233, 253, 0.1);
     }
     @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 0.2; }
-      50% { transform: scale(1.2); opacity: 0.4; }
+      50% { transform: scale(1.1); opacity: 0.4; }
     }
   </style>
 </head>
@@ -323,7 +323,7 @@ function createBackgroundElements() {
       particle.style.left = (gameRect.right + Math.random() * Math.max(0, rightArea - 50)) + 'px';
     }
     
-    particle.style.width = Math.random() * 12 + 8 + 'px';
+    particle.style.width = Math.random() * 8 + 4 + 'px';
     particle.style.height = particle.style.width;
     particle.style.animationDelay = Math.random() * 12 + 's';
     particle.style.animationDuration = (Math.random() * 6 + 8) + 's';
@@ -340,7 +340,7 @@ function createBackgroundElements() {
     } else {
       particle.style.top = (gameRect.bottom + Math.random() * Math.max(0, bottomArea - 50)) + 'px';
     }
-    particle.style.width = Math.random() * 10 + 6 + 'px';
+    particle.style.width = Math.random() * 6 + 3 + 'px';
     particle.style.height = particle.style.width;
     particle.style.animationDelay = Math.random() * 15 + 's';
     particle.style.animationDuration = (Math.random() * 8 + 10) + 's';
@@ -371,7 +371,7 @@ function createBackgroundElements() {
         particle.style.top = (gameRect.bottom + Math.random() * Math.max(0, bottomArea - 100)) + 'px';
         break;
     }
-    particle.style.width = Math.random() * 8 + 4 + 'px';
+    particle.style.width = Math.random() * 5 + 3 + 'px';
     particle.style.height = particle.style.width;
     particle.style.animationDelay = Math.random() * 18 + 's';
     particle.style.animationDuration = (Math.random() * 10 + 12) + 's';
@@ -384,8 +384,8 @@ function createBackgroundElements() {
   for (let i = 0; i < 3; i++) {
     const ring = document.createElement('div');
     ring.className = 'ring';
-    ring.style.width = (400 + i * 250) + 'px';
-    ring.style.height = (400 + i * 250) + 'px';
+    ring.style.width = (300 + i * 200) + 'px';
+    ring.style.height = (300 + i * 200) + 'px';
     ring.style.animationDelay = i * 2 + 's';
     ringsContainer.appendChild(ring);
   }
